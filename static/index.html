@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>易学占卜 · 六爻与梅花</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="site-head">
+  <h1>易学占卜</h1>
+  <p class="sub">六爻纳甲 · 梅花易数　·　传统民俗文化体验</p>
+</header>
+
+<main>
+  <section class="panel" id="form-panel">
+    <form id="cast-form" autocomplete="off">
+      <label class="field">
+        <span>占问何事</span>
+        <textarea id="question" rows="2" placeholder="例如：近期的工作变动会顺利吗"></textarea>
+      </label>
+
+      <div class="grid-2">
+        <label class="field">
+          <span>起卦方式</span>
+          <select id="mode"></select>
+        </label>
+
+        <label class="field">
+          <span>所问事项<em>（定用神）</em></span>
+          <select id="matter"></select>
+        </label>
+      </div>
+
+      <div class="grid-2">
+        <label class="field" id="numbers-field" hidden>
+          <span>报两个数<em>（1–99）</em></span>
+          <div class="inline">
+            <input type="number" id="num1" min="1" max="99" value="7">
+            <input type="number" id="num2" min="1" max="99" value="13">
+          </div>
+        </label>
+
+        <label class="field">
+          <span>求测者<em>（感情类需填）</em></span>
+          <select id="gender">
+            <option value="">未提及</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>起卦时间<em>（留空取当下）</em></span>
+        <input type="datetime-local" id="at">
+      </label>
+
+      <div class="actions">
+        <button type="submit" id="cast-btn" class="primary">起　卦</button>
+        <span class="hint" id="llm-hint"></span>
+      </div>
+    </form>
+  </section>
+
+  <section id="result" hidden>
+    <div class="panel" id="calendar-panel"></div>
+    <div class="panel" id="chart-panel"></div>
+    <div class="panel" id="reading-panel">
+      <h2>卦象解读</h2>
+      <div id="notices"></div>
+      <div id="reading" class="reading"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  推演仅供自我反思参考，事在人为。
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

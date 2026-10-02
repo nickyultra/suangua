@@ -1,0 +1,222 @@
+:root {
+  --paper: #f6f2e9;
+  --paper-2: #fffdf8;
+  --ink: #26221d;
+  --ink-soft: #6b6157;
+  --line: #ddd4c4;
+  --cinnabar: #9c2f2a;
+  --gold: #a9822f;
+  --shadow: 0 1px 2px rgba(60, 48, 32, .06), 0 6px 20px rgba(60, 48, 32, .06);
+}
+
+* { box-sizing: border-box; }
+
+/* 让 hidden 属性胜过 .field 等 display 声明 */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  padding: 0 20px 64px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Songti SC", "SimSun", "Noto Serif CJK SC", Georgia, serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+main { max-width: 900px; margin: 0 auto; }
+
+/* ── 页头 ── */
+.site-head { text-align: center; padding: 44px 0 28px; }
+.site-head h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: .38em;
+  text-indent: .38em;
+  font-weight: 600;
+}
+.site-head .sub {
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  letter-spacing: .16em;
+}
+
+/* ── 面板 ── */
+.panel {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* ── 表单 ── */
+.field { display: block; margin-bottom: 16px; }
+.field > span {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  letter-spacing: .06em;
+}
+.field em { font-style: normal; opacity: .7; font-size: 12px; }
+.field textarea,
+.field input,
+.field select {
+  width: 100%;
+  padding: 9px 11px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  outline: none;
+}
+.field textarea { resize: vertical; }
+.field textarea:focus,
+.field input:focus,
+.field select:focus { border-color: var(--cinnabar); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+.inline { display: flex; gap: 10px; }
+.inline input { flex: 1; }
+
+.actions { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+button.primary {
+  font: inherit;
+  font-size: 16px;
+  letter-spacing: .22em;
+  text-indent: .22em;
+  padding: 10px 30px;
+  color: #fff;
+  background: var(--cinnabar);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+button.primary:hover { opacity: .88; }
+button.primary:disabled { opacity: .45; cursor: default; }
+.hint { font-size: 12px; color: var(--ink-soft); }
+
+/* ── 历法条 ── */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px 20px;
+  font-size: 14px;
+}
+.cal-grid b { font-weight: 600; }
+.cal-key { color: var(--ink-soft); font-size: 12px; display: block; letter-spacing: .08em; }
+
+/* ── 卦象 ── */
+.charts { display: flex; flex-wrap: wrap; gap: 26px; }
+.gua { flex: 1 1 260px; min-width: 240px; }
+.gua-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.gua-name { font-size: 19px; font-weight: 600; letter-spacing: .1em; }
+.gua-meta { font-size: 12px; color: var(--ink-soft); }
+
+.yao-row {
+  display: grid;
+  grid-template-columns: 30px 58px 40px 78px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 13px;
+}
+.yao-row.head {
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: .1em;
+  padding-bottom: 6px;
+}
+.yao-row .ls { color: var(--ink-soft); }
+.yao-row .nj { font-family: ui-monospace, Consolas, monospace; letter-spacing: .02em; }
+.yao-row .lq { color: var(--cinnabar); }
+.yao-row .tags { font-size: 11px; color: var(--gold); letter-spacing: .1em; }
+.yao-row.is-shi { background: rgba(156, 47, 42, .05); }
+.yao-row.moving .bar i { background: var(--cinnabar); }
+
+.bar { display: flex; gap: 9px; width: 100%; align-items: center; }
+.bar i { flex: 1; height: 9px; background: var(--ink); border-radius: 1px; }
+
+/* 梅花卦无纳甲/六亲/六神，收窄列 */
+.gua.meihua .yao-row { grid-template-columns: 78px 1fr; }
+.gua.meihua .yao-row .ls,
+.gua.meihua .yao-row .nj,
+.gua.meihua .yao-row .lq { display: none; }
+
+/* 摇卦逐爻显现 */
+.yao-row.reveal { animation: row-in .3s ease both; }
+@keyframes row-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── 用神 / 体用 ── */
+.note-box {
+  margin-top: 18px;
+  padding: 12px 16px;
+  background: rgba(169, 130, 47, .07);
+  border-left: 3px solid var(--gold);
+  border-radius: 2px;
+  font-size: 14px;
+}
+.note-box b { color: var(--cinnabar); }
+
+/* ── 解读 ── */
+#reading-panel h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  letter-spacing: .18em;
+  font-weight: 600;
+}
+.reading {
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.9;
+  min-height: 1.5em;
+}
+.reading:empty::after {
+  content: "解读中…";
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+.reading.done:empty::after { content: none; }
+.notice {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 6px 0;
+}
+.notice.error { color: var(--cinnabar); }
+
+.cursor::after {
+  content: "▍";
+  color: var(--cinnabar);
+  animation: blink 1s step-start infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.site-foot {
+  max-width: 900px;
+  margin: 8px auto 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: .1em;
+}
+
+@media (max-width: 620px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .yao-row { grid-template-columns: 26px 54px 36px 66px 1fr; font-size: 12px; }
+}
